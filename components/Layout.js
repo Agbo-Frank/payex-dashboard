@@ -4,26 +4,44 @@ import styles from '../styles/Home.module.css'
 import { Logo, UsersIcon, LogOutIcon } from '../assets/icons'
 import Link from 'next/link'
 import { useRouter } from 'next/router'
-import { useState } from 'react'
+import { useState, useContext, useEffect } from 'react'
+import { adminContext } from '../context/adminContext'
+import { UserProfileService } from '../pages/services'
 
 const routeLinks = [
-    {title: 'Unassigned Users', path: '/dashboard'},
-    {title: 'Assigned Users', path: '/dashboard/assigned'},
+    { title: 'Unassigned Users', path: '/dashboard/unassigned' },
+    { title: 'Assigned Users', path: '/dashboard/assigned' },
 ]
 
 
-export default function Layout({children}) {
+export default function Layout({ children }) {
 
     const router = useRouter()
 
     const [menu, setMenu] = useState(false)
+    const [userProfile, setUserProfile] = useState(null)
+    // const {token} = useContext(adminContext)
 
-    console.log(menu)
+    const getAccessToken = () => {
+        if (typeof window !== 'undefined')
+            return localStorage.getItem('token');
+    };
+
+    const token = getAccessToken()
+
+    useEffect(() => {
+        UserProfileService(token).then(response => {
+            if (response.status == '200') {
+                setUserProfile(response.data)
+            }
+        })
+    }, [])
 
     const handleLogOut = () => {
+        localStorage.removeItem('token')
         router.push('/')
     }
-
+    
     return (
         <div className={styles.layout}>
             <div className={`side bg-dark h-screen fixed z-50 w-full md:w-1/4 lg:w-23 xl:w-1/5 2xl:w-w18 py-10 flex justify-center transition-all duration-500 ease-in-out ${menu ? 'translate-x-0 ' : '  translate-x-M100'} md:translate-x-0`}>
@@ -45,7 +63,7 @@ export default function Layout({children}) {
                         </div>
                     </div>
 
-                    <div className='flex items-center justify-center text-logout cursor-pointer mb-16' onClick={()=> handleLogOut()}>
+                    <div className='flex items-center justify-center text-logout cursor-pointer ' onClick={() => handleLogOut()}>
                         <LogOutIcon /> Logout
                     </div>
                 </div>
@@ -55,10 +73,15 @@ export default function Layout({children}) {
                     <div className='w-full flex justify-between items-center md:justify-end'>
                         <div className='flex items-center'>
                             <p className='bg-orange rounded-full text-center py-2 px-4 md:py-4 md:px-6 text-white font-bold'>J</p>
-                            <div className='ml-3 md:text-center'>
-                                <h4 className='text-sm md:text-base'>John Doe</h4>
-                                <p className='text-sm md:text-base'>johndoe@gmail.com</p>
-                            </div>
+                            {
+                                userProfile ?
+                                    <div className='ml-3 md:text-center'>
+                                        <h4 className='text-sm md:text-base'>{userProfile?.first_name} <span>{userProfile?.last_name}</span></h4>
+                                        <p className='text-sm md:text-base'>{userProfile?.email}</p>
+                                    </div>
+                                    :
+                                    null
+                            }
                         </div>
 
                         <div className='md:hidden cursor-pointer' onClick={() => setMenu(true)}>menu</div>

@@ -9,6 +9,7 @@ import { CloseIcon, CopyIcon } from '../assets/icons';
 import '../styles/AccountModal.module.css'
 import FormInput from './FormInput'
 import { LoginService } from '../pages/services';
+import { capitalize } from '../utils/helpers';
 
 const style = {
   position: 'absolute',
@@ -21,7 +22,7 @@ const style = {
   p: 4,
 };
 
-export default function AccountModal() {
+const AccountModal = (props) => {
 
   const formik = LoginService()
 
@@ -44,6 +45,8 @@ export default function AccountModal() {
     console.log(text)
   }
 
+  console.log(props)
+
   return isModalVisible ? (
     <div>
       <Modal
@@ -56,9 +59,9 @@ export default function AccountModal() {
           <div className='flex justify-end w-full cursor-pointer' onClick={() => setIsModalVisible(false)}><CloseIcon /></div>
 
           <div>
-            <h3 className='text-orange text-center text-2xl font-bold'>Collins Ovie Vincent</h3>
+            <h3 className='text-orange text-center text-2xl font-bold'>{capitalize(props.userDetail.first_name) + ' ' + capitalize(props.userDetail.last_name)}</h3>
             <div className='flex items-center justify-center'>
-              <input className='text-dark bg-transparent text-center focus:outline-none' id="copyText" value='09087654312' placeholder='' />
+              <input className='text-dark bg-transparent text-center focus:outline-none' id="copyText" value={props.userDetail.phone_number} placeholder='' />
               <button className='text-dark flex items-center bg-border ml-4 py-1 px-3 rounded-2xl' onClick={() => handleCopy()}> <span>copy</span> <CopyIcon /></button>
             </div>
 
@@ -78,3 +81,5 @@ export default function AccountModal() {
     </div>
   ) : null
 }
+
+export default AccountModal;

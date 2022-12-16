@@ -1,16 +1,19 @@
 import '../styles/globals.css'
 import AccountModalProvider from '../context/accountModal';
+import AdminContextProvider from '../context/adminContext';
 
 function MyApp({ Component, pageProps }) {
 
   const Layout = Component.Layout || EmptyLayout;
 
   return (
-    <Layout>
-      <AccountModalProvider>
-        <Component {...pageProps} />
-      </AccountModalProvider>
-    </Layout>
+    <AdminContextProvider>
+      <Layout>
+        <AccountModalProvider>
+          <Component {...pageProps} />
+        </AccountModalProvider>
+      </Layout>
+    </AdminContextProvider>
   )
 }
 

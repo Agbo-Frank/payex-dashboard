@@ -1,11 +1,15 @@
 import { useFormik } from 'formik';
 import { isEmpty } from '../utils/helpers';
 import { useRouter } from 'next/router';
+import { LoginRequest, UserProfileRequest, getUsersRequest } from './api/apicalls';
+import { useContext } from 'react';
+import { adminContext } from '../context/adminContext';
 
 
 export const LoginService = () => {
 
     const router = useRouter()
+    const { setToken } = useContext(adminContext)
 
     return useFormik({
         initialValues: {
@@ -21,11 +25,43 @@ export const LoginService = () => {
 
             return errors
         },
-        onSubmit: async (values) => {  
-            alert('success')
-            router.push('/dashboard')
+        onSubmit: async (values) => {
+            try {
+                await LoginRequest(values).then(response => {
+                    if (response.error === true) {
+                        console.log(response)
+                    }
+                    else {
+                        console.log(response, 'we are here')
+                        setToken(response.data)
+                        localStorage.setItem('token', response.data.token)
+                        router.push('/dashboard')
+                    }
+                })
 
-            console.log(router, 'dsdsd')
+            } catch (error) {
+                console.log(error)
+            }
         },
     });
+}
+
+export const UserProfileService = async (token) => {
+    return await UserProfileRequest(token)
+        .then(response => {
+            if (response.error === true) {
+                console.log(response)
+            }
+            return response
+        }).catch(error => { return error })
+}
+
+export const getUsersService = async (has_account, token) => {
+    return await getUsersRequest(has_account, token)
+        .then(response => {
+            if (response.error === true) {
+                console.log(response)
+            }
+            return response
+        }).catch(error => { return error })
 }

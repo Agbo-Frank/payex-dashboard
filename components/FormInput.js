@@ -5,8 +5,6 @@ const FormInput = ({ name, label, placeholder, formik, type, color = 'dark', nai
     let [password, setPassword] = useState('password')
     let [seePassword, setSeePassword] = useState(false)
 
-    console.log(name)
-
     return (
         <div className="relative w-full my-3">
             <span className={`${color === 'light' ? 'text-white' : 'text-primary-400'} text-sm`}>{label}</span>
