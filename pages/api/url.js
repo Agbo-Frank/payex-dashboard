@@ -1,1 +1,0 @@
-export const API = 'https://pay.3334763tfdbf.sbs/sandbox/v1'
