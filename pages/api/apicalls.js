@@ -6,8 +6,6 @@ export default function handler(req, res) {
 
 export const LoginRequest = async ({ email, password }) => {
 
-  console.log(API)
-
   var myHeaders = new Headers();
   myHeaders.append("Content-Type", "application/json");
 
