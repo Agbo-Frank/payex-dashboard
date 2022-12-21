@@ -58,17 +58,29 @@ export const getUsersRequest = async (has_account, token) => {
   return JSON.parse(result)
 }
 
-export const editUsersRequest = async (token, account_number, uuid) => {
+export const createAccountNumberRequest = async ({account_number}) => {
+
+  const token = localStorage.getItem('token')
+  const uuid = localStorage.getItem('uuid')
+
+  console.log('confirm account number,', account_number)
 
   var myHeaders = new Headers();
   myHeaders.append("Authorization", token);
+  myHeaders.append("Content-Type", "application/json");
+
+  var raw = JSON.stringify({
+    account_number: account_number,
+    uuid: uuid
+  });
 
   var requestOptions = {
-    method: 'PUT',
+    method: 'POST',
     headers: myHeaders,
+    body: raw,
   };
 
-  let response = await fetch(`https://pay.3334763tfdbf.sbs/sandbox/v1/user`, requestOptions)
+  let response = await fetch(`https://pay.3334763tfdbf.sbs/sandbox/v1/wallet`, requestOptions)
   let result = await response.text()
 
   return JSON.parse(result)

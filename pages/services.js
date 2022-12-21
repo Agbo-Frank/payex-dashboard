@@ -1,9 +1,12 @@
+import React from 'react';
 import { useFormik } from 'formik';
 import { isEmpty } from '../utils/helpers';
 import { useRouter } from 'next/router';
-import { LoginRequest, UserProfileRequest, getUsersRequest } from './api/apicalls';
+import { LoginRequest, UserProfileRequest, getUsersRequest, createAccountNumberRequest } from './api/apicalls';
 import { useContext } from 'react';
 import { adminContext } from '../context/adminContext';
+import { afterSometime } from '../utils/helpers';
+// import toast from 'react-toastify'
 
 
 export const LoginService = () => {
@@ -30,6 +33,7 @@ export const LoginService = () => {
                 await LoginRequest(values).then(response => {
                     if (response.error === true) {
                         console.log(response)
+                        // toast('Toast is good')
                     }
                     else {
                         console.log(response, 'we are here')
@@ -64,4 +68,41 @@ export const getUsersService = async (has_account, token) => {
             }
             return response
         }).catch(error => { return error })
+}
+
+export const createAccountNumberService = () => {
+
+    const Router = useRouter()
+
+    return useFormik({
+        initialValues: {
+            account_number: "",
+        },
+        validateOnChange: false,
+        validate: (values) => {
+            const errors = {};
+
+            if (isEmpty(values.account_number) == false) errors.account_number = "Account Number is required"
+
+            return errors
+        },
+        onSubmit: async (values) => {
+            try {
+                await createAccountNumberRequest(values).then(response => {
+                    if (response.error === true) {
+                        console.log(response)
+                    }
+                    else {
+                        console.log(response, 'we are here in account')
+                        afterSometime(()=>{
+                            Router.reload(window.location.pathname)
+                        },3000)
+                    }
+                })
+
+            } catch (error) {
+                console.log(error)
+            }
+        },
+    });
 }

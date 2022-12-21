@@ -10,6 +10,7 @@ import '../styles/AccountModal.module.css'
 import FormInput from './FormInput'
 import { LoginService } from '../pages/services';
 import { capitalize } from '../utils/helpers';
+import { createAccountNumberService } from '../pages/services';
 
 const style = {
   position: 'absolute',
@@ -24,15 +25,22 @@ const style = {
 
 const AccountModal = (props) => {
 
-  const formik = LoginService()
 
   const { isModalVisible, setIsModalVisible } = useContext(accountModal)
 
+  const getAccessToken = () => {
+    if (typeof window !== 'undefined')
+      return localStorage.getItem('token');
+  };
 
-  // const [open, setOpen] = React.useState(false);
+  const token = getAccessToken()
 
-  // const handleOpen = () => setOpen(true);
-  const handleClose = () => setOpen(false);
+  const formik = createAccountNumberService()
+
+  const submit = (e) => {
+    e.preventDefault()
+    formik.handleSubmit();
+  }
 
   const handleCopy = () => {
     const text = document.getElementById('copyText').value
@@ -65,7 +73,7 @@ const AccountModal = (props) => {
               <button className='text-dark flex items-center bg-border ml-4 py-1 px-3 rounded-2xl' onClick={() => handleCopy()}> <span>copy</span> <CopyIcon /></button>
             </div>
 
-            <form className='p-10'>
+            <form className='p-10' onSubmit={submit}>
               <FormInput name="account_number" label="" placeholder="Account Number" formik={formik} type="text" color="dark" />
               <Button variant='contained' fullWidth
                 sx={{

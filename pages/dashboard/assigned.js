@@ -1,6 +1,7 @@
 import Layout from "../../components/Layout";
 import { Table, TableBody, TableCell, TableContainer, TableHead, TableRow, Pagination, Stack, Menu, MenuItem, IconButton } from "@mui/material"
 import { useEffect, useState } from "react";
+import { capitalize } from "../../utils/helpers";
 import { getUsersService } from "../services";
 
 export default function Assigned() {
@@ -35,7 +36,7 @@ export default function Assigned() {
                         <TableContainer>
                             <Table aria-label="simple table">
                                 <TableHead sx={{ position: 'sticky', background: '#F3F2F0', }}>
-                                    <TableRow sx={{ '&:last-child td, &:last-child th': { border: 0, color: '#F4A85D', padding: { lg: '10px 40px' }, fontWeight: 'bold' } }}>
+                                    <TableRow sx={{ '&:last-child td, &:last-child th': { border: 0, color: '#F4A85D', padding: { lg: '10px 20px' }, fontWeight: 'bold' } }}>
                                         <TableCell align='left'>S/n</TableCell>
                                         <TableCell align="left">Customer Name</TableCell>
                                         <TableCell align="left">Phone Number</TableCell>
@@ -43,23 +44,23 @@ export default function Assigned() {
                                     </TableRow>
                                 </TableHead>
                                 {
-                                    users.data > 0 ?
+                                    users.data.length > 0 ?
                                         <TableBody>
                                             {
                                                 users.data.map((user, idx) => {
                                                     return (
-                                                        <TableRow key={user.uuid} sx={{ '&:last-child td, &:last-child th': { border: 0, padding: { lg: '15px 40px' }, color: '#1A324C' } }}>
+                                                        <TableRow key={user.uuid} sx={{ ' td, th': { border: 'none', borderBottom: 0, padding: { md: '10px', lg: '10px 20px' }, color: '#1A324C' } }}>
                                                             <TableCell align='left'>{idx + 1}</TableCell>
                                                             <TableCell align="left">{capitalize(user.first_name) + " " + capitalize(user.last_name)}</TableCell>
                                                             <TableCell align="left">{user.phone_number}</TableCell>
-                                                            <TableCell align="center">{user.account_number}</TableCell>
+                                                            <TableCell align="center">{user.wallet.account_number}</TableCell>
                                                         </TableRow>
                                                     )
                                                 })
                                             }
                                         </TableBody>
                                         :
-                                        <p className="mt-5">No Users With Account Number</p>
+                                        <p className="mt-3 italic">No Users With Account Number</p>
                                 }
                             </Table>
                         </TableContainer>

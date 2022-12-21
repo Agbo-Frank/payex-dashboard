@@ -36,6 +36,7 @@ export default function Unassigned() {
     const handleOpenModal = (user) => {
         setIsModalVisible(true)
         setUserDetail(user)
+        localStorage.setItem('uuid', user.uuid)
     }
 
     console.log(users)
@@ -57,20 +58,25 @@ export default function Unassigned() {
                                         <TableCell align="right">Option</TableCell>
                                     </TableRow>
                                 </TableHead>
-                                <TableBody>
-                                    {
-                                        users.data.map((user, idx) => {
-                                            return (
-                                                <TableRow key={user.uuid} sx={{ 'td, th': { border: 'none', borderBottom: 0, padding: { lg: '10px 40px', xl: '0 0' }, fontSize: { xxs: '12px', md: '14px' }, color: '#1A324C' } }} >
-                                                    <TableCell className='p-5' align='left'>{idx + 1}</TableCell>
-                                                    <TableCell align="left">{capitalize(user.first_name) + " " + capitalize(user.last_name)}</TableCell>
-                                                    <TableCell align="left">{user.phone_number}</TableCell>
-                                                    <TableCell sx={{}} align="right"><button className='bg-border rounded p-2' onClick={() => handleOpenModal(user)}>Assign account number</button></TableCell>
-                                                </TableRow>
-                                            )
-                                        })
-                                    }
-                                </TableBody>
+                                {
+                                    users.data.length > 0 ?
+                                        <TableBody>
+                                            {
+                                                users.data.map((user, idx) => {
+                                                    return (
+                                                        <TableRow key={user.uuid} sx={{ 'td, th': { border: 'none', borderBottom: 0, padding: { md: '10px', lg: '10px 20px', xl: '0 0' }, fontSize: { xxs: '12px', md: '14px' }, color: '#1A324C' } }} >
+                                                            <TableCell className='p-5' align='left'>{idx + 1}</TableCell>
+                                                            <TableCell align="left">{capitalize(user.first_name) + " " + capitalize(user.last_name)}</TableCell>
+                                                            <TableCell align="left">{user.phone_number}</TableCell>
+                                                            <TableCell sx={{}} align="right"><button className='bg-border rounded p-2' onClick={() => handleOpenModal(user)}>Assign account number</button></TableCell>
+                                                        </TableRow>
+                                                    )
+                                                })
+                                            }
+                                        </TableBody>
+                                        :
+                                        <p className='mt-3 italic'>No users without account</p>
+                                }
                             </Table>
                         </TableContainer>
                         :
@@ -78,7 +84,7 @@ export default function Unassigned() {
                 }
             </div>
             <AccountModal userDetail={userDetail} />
-        
+
         </>
     )
 }
