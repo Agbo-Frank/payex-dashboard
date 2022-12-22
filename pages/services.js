@@ -6,7 +6,7 @@ import { LoginRequest, UserProfileRequest, getUsersRequest, createAccountNumberR
 import { useContext } from 'react';
 import { adminContext } from '../context/adminContext';
 import { afterSometime } from '../utils/helpers';
-// import toast from 'react-toastify'
+import { toast } from 'react-toastify';
 
 
 export const LoginService = () => {
@@ -33,12 +33,12 @@ export const LoginService = () => {
                 await LoginRequest(values).then(response => {
                     if (response.error === true) {
                         console.log(response)
-                        // toast('Toast is good')
+                        toast(response.message, { hideProgressBar: true, autoClose: 2000, type: 'error' })
                     }
                     else {
-                        console.log(response, 'we are here')
                         setToken(response.data)
                         localStorage.setItem('token', response.data.token)
+                        toast(response.message, { hideProgressBar: true, autoClose: 2000, type: 'success' })
                         router.push('/dashboard')
                     }
                 })
@@ -83,6 +83,7 @@ export const createAccountNumberService = () => {
             const errors = {};
 
             if (isEmpty(values.account_number) == false) errors.account_number = "Account Number is required"
+            if (values.account_number.length <= 9 ) errors.account_number = "Please enter a valid account number"
 
             return errors
         },
@@ -91,9 +92,10 @@ export const createAccountNumberService = () => {
                 await createAccountNumberRequest(values).then(response => {
                     if (response.error === true) {
                         console.log(response)
+                        toast(response.message, { hideProgressBar: true, autoClose: 2000, type: 'error' })
                     }
                     else {
-                        console.log(response, 'we are here in account')
+                        toast(response.message, { hideProgressBar: true, autoClose: 2000, type: 'success' })
                         afterSometime(()=>{
                             Router.reload(window.location.pathname)
                         },3000)

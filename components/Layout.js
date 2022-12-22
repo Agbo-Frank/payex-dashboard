@@ -4,9 +4,9 @@ import styles from '../styles/Home.module.css'
 import { Logo, UsersIcon, LogOutIcon } from '../assets/icons'
 import Link from 'next/link'
 import { useRouter } from 'next/router'
-import { useState, useContext, useEffect } from 'react'
-import { adminContext } from '../context/adminContext'
+import { useState, useEffect } from 'react'
 import { UserProfileService } from '../pages/services'
+import { capitalize } from '../utils/helpers'
 
 const routeLinks = [
     { title: 'Unassigned Users', path: '/dashboard/unassigned' },
@@ -33,6 +33,7 @@ export default function Layout({ children }) {
         UserProfileService(token).then(response => {
             if (response.status == '200') {
                 setUserProfile(response.data)
+                console.log(response.data)
             }
         })
     }, [])
@@ -72,7 +73,7 @@ export default function Layout({ children }) {
                 <div className='bg-white py-5 px-5 md:px-20 flex  md:justify-end border-b-4 border-b-border fixed w-full'>
                     <div className='w-full flex justify-between items-center md:justify-end'>
                         <div className='flex items-center'>
-                            <p className='bg-orange rounded-full text-center py-2 px-4 md:py-4 md:px-6 text-white font-bold'>J</p>
+                            <p className='bg-orange rounded-full text-center py-2 px-4 md:py-2 md:px-4 text-white font-bold'>{capitalize(userProfile?.email.charAt(0))}</p>
                             {
                                 userProfile ?
                                     <div className='ml-3 md:text-center'>

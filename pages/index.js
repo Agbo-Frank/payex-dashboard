@@ -6,7 +6,6 @@ import FormInput from '../components/FormInput'
 import { LoginService } from './services'
 import { Button } from '@mui/material'
 
-
 export default function Login() {
 
     const formik = LoginService()
@@ -15,6 +14,8 @@ export default function Login() {
         e.preventDefault()
         formik.handleSubmit();
     }
+
+    // const notify = () => toast("Wow so easy!");
 
     return (
         <>
@@ -38,6 +39,8 @@ export default function Login() {
                             }}
                             type='submit'>Login</Button>
                     </form>
+
+                    {/* <button onClick={notify} className='bg-red-300 mt-5'>Notify!</button> */}
                 </div>
             </div>
         </>
