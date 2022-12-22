@@ -64,7 +64,7 @@ export default function Unassigned() {
                                             {
                                                 users.data.map((user, idx) => {
                                                     return (
-                                                        <TableRow key={user.uuid} sx={{ 'td, th': { border: 'none', borderBottom: 0, padding: { md: '10px', lg: '10px 20px', xl: '0 0' }, fontSize: { xxs: '12px', md: '14px' }, color: '#1A324C' } }} >
+                                                        <TableRow key={user.uuid} sx={{ 'td, th': { border: 'none', borderBottom: 0, padding: { md: '10px', lg: '10px 20px', xl: '10px, 20px' }, fontSize: { xxs: '12px', md: '14px' }, color: '#1A324C' } }} >
                                                             <TableCell className='p-5' align='left'>{idx + 1}</TableCell>
                                                             <TableCell align="left">{capitalize(user.first_name) + " " + capitalize(user.last_name)}</TableCell>
                                                             <TableCell align="left">{user.phone_number}</TableCell>

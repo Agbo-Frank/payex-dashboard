@@ -73,7 +73,7 @@ export default function Layout({ children }) {
                 <div className='bg-white py-5 px-5 md:px-20 flex  md:justify-end border-b-4 border-b-border fixed w-full'>
                     <div className='w-full flex justify-between items-center md:justify-end'>
                         <div className='flex items-center'>
-                            <p className='bg-orange rounded-full text-center py-2 px-4 md:py-2 md:px-4 text-white font-bold'>{capitalize(userProfile?.email.charAt(0))}</p>
+                            <p className='bg-orange rounded-full text-center py-2 px-4 md:py-2 md:px-4 text-white font-bold'>{userProfile?.email.charAt(0).toUpperCase()}</p>
                             {
                                 userProfile ?
                                     <div className='ml-3 md:text-center'>
@@ -85,7 +85,7 @@ export default function Layout({ children }) {
                             }
                         </div>
 
-                        <div className='md:hidden cursor-pointer' onClick={() => setMenu(true)}>menu</div>
+                        <div className='md:hidden cursor-pointer' onClick={() => setMenu(true)}><img src="https://img.icons8.com/material/24/null/menu--v1.png"/></div>
                     </div>
                 </div>
                 <div className='md:ml-s25 lg:s23 xl:ml-s20 2xl:ml-s18 pt-32 px-3 md:px-10'>
