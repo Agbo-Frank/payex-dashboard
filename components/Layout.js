@@ -1,12 +1,9 @@
-import Head from 'next/head'
-import Image from 'next/image'
 import styles from '../styles/Home.module.css'
 import { Logo, UsersIcon, LogOutIcon } from '../assets/icons'
 import Link from 'next/link'
 import { useRouter } from 'next/router'
 import { useState, useEffect } from 'react'
-import { UserProfileService } from '../pages/services'
-import { capitalize } from '../utils/helpers'
+import { UserProfileService } from '../services'
 
 const routeLinks = [
     { title: 'Unassigned Users', path: '/dashboard/unassigned' },

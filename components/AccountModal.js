@@ -1,16 +1,14 @@
 import * as React from 'react';
 import Box from '@mui/material/Box';
 import Button from '@mui/material/Button';
-import Typography from '@mui/material/Typography';
 import Modal from '@mui/material/Modal';
 import { accountModal } from '../context/accountModal';
 import { useContext } from 'react';
 import { CloseIcon, CopyIcon } from '../assets/icons';
 import '../styles/AccountModal.module.css'
 import FormInput from './FormInput'
-import { LoginService } from '../pages/services';
 import { capitalize } from '../utils/helpers';
-import { createAccountNumberService } from '../pages/services';
+import { createAccountNumberService } from '../services';
 
 const style = {
   position: 'absolute',

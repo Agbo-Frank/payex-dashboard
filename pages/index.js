@@ -3,7 +3,7 @@ import Image from 'next/image'
 import styles from '../styles/Home.module.css'
 import { Logo } from '../assets/icons'
 import FormInput from '../components/FormInput'
-import { LoginService } from './services'
+import { LoginService } from '../services'
 import { Button } from '@mui/material'
 
 export default function Login() {
