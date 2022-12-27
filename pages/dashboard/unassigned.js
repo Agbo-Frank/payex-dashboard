@@ -1,12 +1,9 @@
-import Head from 'next/head'
-import Image from 'next/image'
-import styles from '../../styles/Home.module.css'
 import Layout from '../../components/Layout'
 import { Table, TableBody, TableCell, TableContainer, TableHead, TableRow, Pagination, Stack, Menu, MenuItem, IconButton } from "@mui/material"
 import { useContext, useEffect, useState } from 'react'
 import { accountModal } from '../../context/accountModal'
 import AccountModal from '../../components/AccountModal'
-import { getUsersService } from '../services'
+import { getUsersService } from '../../services'
 import { capitalize } from '../../utils/helpers'
 
 export default function Unassigned() {

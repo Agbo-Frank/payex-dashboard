@@ -2,7 +2,7 @@ import Layout from "../../components/Layout";
 import { Table, TableBody, TableCell, TableContainer, TableHead, TableRow, Pagination, Stack, Menu, MenuItem, IconButton } from "@mui/material"
 import { useEffect, useState } from "react";
 import { capitalize } from "../../utils/helpers";
-import { getUsersService } from "../services";
+import { getUsersService } from "../../services";
 
 export default function Assigned() {
 

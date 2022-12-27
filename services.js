@@ -1,11 +1,11 @@
 import React from 'react';
 import { useFormik } from 'formik';
-import { isEmpty } from '../utils/helpers';
+import { isEmpty } from './utils/helpers';
 import { useRouter } from 'next/router';
-import { LoginRequest, UserProfileRequest, getUsersRequest, createAccountNumberRequest } from './api/apicalls';
+import { LoginRequest, UserProfileRequest, getUsersRequest, createAccountNumberRequest } from './pages/api/apicalls';
 import { useContext } from 'react';
-import { adminContext } from '../context/adminContext';
-import { afterSometime } from '../utils/helpers';
+import { adminContext } from './context/adminContext';
+import { afterSometime } from './utils/helpers';
 import { toast } from 'react-toastify';
 
 
