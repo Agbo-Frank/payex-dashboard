@@ -77,6 +77,7 @@ export const createAccountNumberService = () => {
     return useFormik({
         initialValues: {
             account_number: "",
+            bank_name: ""
         },
         validateOnChange: false,
         validate: (values) => {
@@ -84,6 +85,7 @@ export const createAccountNumberService = () => {
 
             if (isEmpty(values.account_number) == false) errors.account_number = "Account Number is required"
             if (values.account_number.length <= 9 ) errors.account_number = "Please enter a valid account number"
+            if (isEmpty(values.bank_name) == false) errors.bank_name = "Bank Name is required"
 
             return errors
         },

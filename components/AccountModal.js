@@ -9,6 +9,7 @@ import '../styles/AccountModal.module.css'
 import FormInput from './FormInput'
 import { capitalize } from '../utils/helpers';
 import { createAccountNumberService } from '../services';
+import SelectInput from './SelectInput';
 
 const style = {
   position: 'absolute',
@@ -51,7 +52,7 @@ const AccountModal = (props) => {
     console.log(text)
   }
 
-  console.log(props)
+  const bankName = ['Wema Bank', 'Access Bank']
 
   return isModalVisible ? (
     <div>
@@ -73,6 +74,13 @@ const AccountModal = (props) => {
 
             <form className='p-10' onSubmit={submit}>
               <FormInput name="account_number" label="" placeholder="Account Number" formik={formik} type="text" color="dark" />
+
+              <SelectInput
+                label="Select Bank"
+                name="bank_name"
+                formik={formik}
+                data={bankName}
+              />
               <Button variant='contained' fullWidth
                 sx={{
                   background: '#12131E!important', color: 'white', padding: '10px 0',

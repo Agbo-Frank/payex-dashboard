@@ -58,7 +58,7 @@ export const getUsersRequest = async (has_account, token) => {
   return JSON.parse(result)
 }
 
-export const createAccountNumberRequest = async ({account_number}) => {
+export const createAccountNumberRequest = async ({account_number, bank_name}) => {
 
   const token = localStorage.getItem('token')
   const uuid = localStorage.getItem('uuid')
@@ -71,6 +71,7 @@ export const createAccountNumberRequest = async ({account_number}) => {
 
   var raw = JSON.stringify({
     account_number: account_number,
+    bank_name: bank_name,
     uuid: uuid
   });
 

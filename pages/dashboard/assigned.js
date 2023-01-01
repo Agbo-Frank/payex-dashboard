@@ -40,6 +40,7 @@ export default function Assigned() {
                                         <TableCell align='left'>S/n</TableCell>
                                         <TableCell align="left">Customer Name</TableCell>
                                         <TableCell align="left">Phone Number</TableCell>
+                                        <TableCell align="left">Bank Name</TableCell>
                                         <TableCell align="center">Account Number</TableCell>
                                     </TableRow>
                                 </TableHead>
@@ -53,6 +54,7 @@ export default function Assigned() {
                                                             <TableCell align='left'>{idx + 1}</TableCell>
                                                             <TableCell align="left">{capitalize(user.first_name) + " " + capitalize(user.last_name)}</TableCell>
                                                             <TableCell align="left">{user.phone_number}</TableCell>
+                                                            <TableCell align="left">{user.wallet.bank_name}</TableCell>
                                                             <TableCell align="center">{user.wallet.account_number}</TableCell>
                                                         </TableRow>
                                                     )
